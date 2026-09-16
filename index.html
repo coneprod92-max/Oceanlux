@@ -144,6 +144,7 @@
       padding: 14px 25px;
       border-radius: 8px;
       font-weight: bold;
+      cursor: pointer;
     }
 
     section {
@@ -289,7 +290,143 @@
       text-align: center;
     }
 
+    /* FICHE DÉTAIL */
+
+    #boatDetails {
+      display: none;
+      padding: 70px 7%;
+      background: #06111f;
+    }
+
+    .detail-container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .back-button {
+      background: none;
+      border: 1px solid #d5b36a;
+      color: #d5b36a;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .detail-image {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      border-radius: 18px;
+      display: block;
+    }
+
+    .detail-content {
+      padding-top: 30px;
+    }
+
+    .detail-label {
+      color: #d5b36a;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+    }
+
+    .detail-name {
+      font-family: Georgia, serif;
+      font-size: 48px;
+      margin: 12px 0;
+    }
+
+    .detail-location {
+      color: #aeb8c4;
+      font-size: 17px;
+    }
+
+    .detail-description {
+      color: #c5ccd5;
+      line-height: 1.8;
+      margin: 25px 0;
+      max-width: 800px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .feature {
+      background: #0c1a2b;
+      border: 1px solid rgba(255,255,255,.08);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .feature strong {
+      display: block;
+      color: #d5b36a;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .feature span {
+      color: #aeb8c4;
+      font-size: 13px;
+    }
+
+    .booking-box {
+      background: white;
+      color: #07111f;
+      padding: 30px;
+      border-radius: 16px;
+      max-width: 500px;
+      margin-top: 30px;
+    }
+
+    .booking-box h3 {
+      font-family: Georgia, serif;
+      font-size: 28px;
+    }
+
+    .detail-price {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 15px 0 25px;
+    }
+
+    .booking-box label {
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .booking-box input {
+      width: 100%;
+      padding: 13px;
+      margin-top: 6px;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+    }
+
+    .booking-button {
+      width: 100%;
+      padding: 16px;
+      margin-top: 20px;
+      background: #07111f;
+      color: white;
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
     @media(max-width: 900px) {
+
       #boats {
         grid-template-columns: 1fr 1fr;
       }
@@ -297,9 +434,14 @@
       .search-grid {
         grid-template-columns: 1fr 1fr;
       }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
     @media(max-width: 650px) {
+
       nav {
         display: none;
       }
@@ -323,6 +465,18 @@
       .section-title h2 {
         font-size: 34px;
       }
+
+      .detail-image {
+        height: 280px;
+      }
+
+      .detail-name {
+        font-size: 36px;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
     }
   </style>
 </head>
@@ -330,159 +484,430 @@
 <body>
 
 <header>
+
   <div class="logo">OCEANLUX</div>
 
   <nav>
-    <a href="#boats">Bateaux</a>
+    <a href="#boats-section">Bateaux</a>
     <a href="#experience">Expérience</a>
     <a href="#">Connexion</a>
   </nav>
+
 </header>
 
-<section class="hero">
-  <div class="hero-content">
-    <div class="eyebrow">Location nautique premium</div>
 
-    <h1>Votre prochaine expérience en mer.</h1>
+<!-- HERO -->
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="eyebrow">
+      Location nautique premium
+    </div>
+
+    <h1>
+      Votre prochaine expérience en mer.
+    </h1>
 
     <p>
       Découvrez une sélection de yachts et bateaux d'exception
       pour vos sorties privées, événements et moments inoubliables.
     </p>
 
-    <a href="#boats" class="hero-button">
+    <a href="#boats-section" class="hero-button">
       Découvrir nos bateaux
     </a>
+
   </div>
+
 </section>
 
+
+<!-- RECHERCHE -->
+
 <div class="search">
-  <h2>Trouvez votre bateau</h2>
+
+  <h2>
+    Trouvez votre bateau
+  </h2>
 
   <div class="search-grid">
-    <input type="text" id="locationSearch" placeholder="Destination">
 
-    <input type="date" id="dateSearch">
+    <input
+      type="text"
+      id="locationSearch"
+      placeholder="Destination"
+    >
+
+    <input
+      type="date"
+      id="dateSearch"
+    >
 
     <select id="typeSearch">
-      <option value="">Tous les types</option>
-      <option value="yacht">Yacht</option>
-      <option value="bateau">Bateau</option>
-      <option value="catamaran">Catamaran</option>
-      <option value="voilier">Voilier</option>
-      <option value="speedboat">Speedboat</option>
+
+      <option value="">
+        Tous les types
+      </option>
+
+      <option value="yacht">
+        Yacht
+      </option>
+
+      <option value="bateau">
+        Bateau
+      </option>
+
+      <option value="catamaran">
+        Catamaran
+      </option>
+
+      <option value="voilier">
+        Voilier
+      </option>
+
+      <option value="speedboat">
+        Speedboat
+      </option>
+
     </select>
 
-    <button onclick="filterBoats()">Rechercher</button>
+    <button onclick="filterBoats()">
+      Rechercher
+    </button>
+
   </div>
+
 </div>
+
+
+<!-- BATEAUX -->
 
 <section id="boats-section">
 
   <div class="section-title">
-    <small>OceanLux Collection</small>
-    <h2>Nos bateaux</h2>
+
+    <small>
+      OceanLux Collection
+    </small>
+
+    <h2>
+      Nos bateaux
+    </h2>
+
   </div>
 
   <div id="boats">
-    <div class="empty">Chargement des bateaux...</div>
+
+    <div class="empty">
+      Chargement des bateaux...
+    </div>
+
   </div>
 
 </section>
 
+
+<!-- EXPÉRIENCE -->
+
 <section id="experience">
 
   <div class="experience">
-    <h2>Plus qu'une location. Une expérience.</h2>
+
+    <h2>
+      Plus qu'une location. Une expérience.
+    </h2>
 
     <p>
       OceanLux connecte les passionnés de la mer avec des bateaux
       soigneusement sélectionnés. Notre ambition est de rendre
       la location nautique simple, élégante et accessible.
     </p>
+
   </div>
 
 </section>
 
+
+<!-- FICHE DÉTAIL -->
+
+<div id="boatDetails">
+
+  <div class="detail-container">
+
+    <button
+      class="back-button"
+      onclick="closeBoatDetails()"
+    >
+      ← Retour aux bateaux
+    </button>
+
+    <img
+      id="detailImage"
+      class="detail-image"
+      src=""
+      alt="Bateau"
+    >
+
+    <div class="detail-content">
+
+      <div class="detail-label">
+        OceanLux Collection
+      </div>
+
+      <h2
+        id="detailName"
+        class="detail-name"
+      ></h2>
+
+      <p
+        id="detailLocation"
+        class="detail-location"
+      ></p>
+
+      <p
+        id="detailDescription"
+        class="detail-description"
+      ></p>
+
+
+      <div class="features">
+
+        <div class="feature">
+
+          <strong id="detailCapacity">
+            -
+          </strong>
+
+          <span>
+            Passagers
+          </span>
+
+        </div>
+
+
+        <div class="feature">
+
+          <strong id="detailCabins">
+            -
+          </strong>
+
+          <span>
+            Cabines
+          </span>
+
+        </div>
+
+
+        <div class="feature">
+
+          <strong id="detailLength">
+            -
+          </strong>
+
+          <span>
+            Longueur
+          </span>
+
+        </div>
+
+
+        <div class="feature">
+
+          <strong id="detailYear">
+            -
+          </strong>
+
+          <span>
+            Année
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- RÉSERVATION -->
+
+      <div class="booking-box">
+
+        <h3>
+          Réserver ce bateau
+        </h3>
+
+        <div
+          id="detailPrice"
+          class="detail-price"
+        ></div>
+
+
+        <label for="bookingStart">
+          Date de départ
+        </label>
+
+        <input
+          id="bookingStart"
+          type="date"
+        >
+
+
+        <label for="bookingEnd">
+          Date de retour
+        </label>
+
+        <input
+          id="bookingEnd"
+          type="date"
+        >
+
+
+        <button
+          class="booking-button"
+          onclick="requestBoatBooking()"
+        >
+          Demander une réservation
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
 <footer>
+
   © 2026 OceanLux — L'expérience nautique premium.
+
 </footer>
 
+
+<!-- JAVASCRIPT -->
+
 <script>
-  const SUPABASE_URL = "https://evvblxiitorfdniqmqcf.supabase.co";
 
-  const SUPABASE_KEY =
-    "sb_publishable_pJHLKhN_Qvj8M38uFNx4ow_WktH1zZC";
+const SUPABASE_URL =
+  "https://evvblxiitorfdniqmqcf.supabase.co";
 
-  let allBoats = [];
+const SUPABASE_KEY =
+  "sb_publishable_pJHLKhN_Qvj8M38uFNx4ow_WktH1zZC";
 
-  async function loadBoats() {
 
-    const container = document.getElementById("boats");
+let allBoats = [];
 
-    try {
 
-      const response = await fetch(
-        SUPABASE_URL +
-        "/rest/v1/boats?select=*&status=eq.published&order=created_at.desc",
-        {
-          headers: {
-            apikey: SUPABASE_KEY,
-            Authorization: "Bearer " + SUPABASE_KEY
-          }
+/* =========================
+   CHARGER LES BATEAUX
+========================= */
+
+async function loadBoats() {
+
+  const container =
+    document.getElementById("boats");
+
+  try {
+
+    const response = await fetch(
+      SUPABASE_URL +
+      "/rest/v1/boats?select=*&status=eq.published&order=created_at.desc",
+      {
+        method: "GET",
+
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY
         }
+      }
+    );
+
+
+    if (!response.ok) {
+
+      const errorText =
+        await response.text();
+
+      console.error(
+        "Erreur Supabase :",
+        errorText
       );
 
-      if (!response.ok) {
-        throw new Error("Erreur Supabase");
-      }
-
-      allBoats = await response.json();
-
-      displayBoats(allBoats);
-
-    } catch (error) {
-
-      console.error(error);
-
-      container.innerHTML = `
-        <div class="empty">
-          Impossible de charger les bateaux pour le moment.
-        </div>
-      `;
+      throw new Error(
+        "Impossible de charger les bateaux"
+      );
     }
+
+
+    allBoats =
+      await response.json();
+
+
+    displayBoats(allBoats);
+
   }
 
-  function displayBoats(boats) {
+  catch (error) {
 
-    const container = document.getElementById("boats");
+    console.error(error);
 
-    if (!boats.length) {
+    container.innerHTML = `
+      <div class="empty">
+        Impossible de charger les bateaux pour le moment.
+      </div>
+    `;
 
-      container.innerHTML = `
-        <div class="empty">
-          Aucun bateau publié pour le moment.
-        </div>
-      `;
+  }
 
-      return;
-    }
+}
 
-    container.innerHTML = boats.map(boat => {
+
+/* =========================
+   AFFICHER LES BATEAUX
+========================= */
+
+function displayBoats(boats) {
+
+  const container =
+    document.getElementById("boats");
+
+
+  if (!boats || !boats.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        Aucun bateau publié pour le moment.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  container.innerHTML = boats.map(
+    boat => {
 
       const image =
         "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1000&q=85";
 
+
       const price =
-        Number(boat.price_per_day || 0).toLocaleString("fr-FR");
+        Number(
+          boat.price_per_day || 0
+        ).toLocaleString("fr-FR");
+
 
       return `
+
         <article class="boat-card">
 
           <img
             class="boat-image"
             src="${image}"
-            alt="${boat.name}"
+            alt="${boat.name || "Bateau OceanLux"}"
           >
 
           <div class="boat-info">
@@ -491,7 +916,9 @@
               OceanLux Collection
             </div>
 
-            <h3>${boat.name}</h3>
+            <h3>
+              ${boat.name || "Bateau OceanLux"}
+            </h3>
 
             <div class="boat-location">
               📍 ${boat.location || "Destination non renseignée"}
@@ -500,8 +927,17 @@
             <div class="boat-meta">
 
               <div class="boat-price">
-                <strong>${price} FCFA</strong><br>
-                <span>par jour</span>
+
+                <strong>
+                  ${price} FCFA
+                </strong>
+
+                <br>
+
+                <span>
+                  par jour
+                </span>
+
               </div>
 
               <div class="boat-capacity">
@@ -512,7 +948,7 @@
 
             <a
               class="details-button"
-              href="?boat=${boat.id}"
+              href="?boat=${encodeURIComponent(boat.id)}"
             >
               Voir les détails
             </a>
@@ -520,204 +956,310 @@
           </div>
 
         </article>
+
       `;
 
-    }).join("");
-  }
+    }
+  ).join("");
 
-  function filterBoats() {
+}
 
-    const location =
-      document.getElementById("locationSearch")
+
+/* =========================
+   RECHERCHE
+========================= */
+
+function filterBoats() {
+
+  const location =
+    document
+      .getElementById("locationSearch")
       .value
       .toLowerCase()
       .trim();
 
-    const type =
-      document.getElementById("typeSearch")
+
+  const type =
+    document
+      .getElementById("typeSearch")
       .value
       .toLowerCase();
 
-    const filtered = allBoats.filter(boat => {
 
-      const locationMatch =
-        !location ||
-        (boat.location || "")
-        .toLowerCase()
-        .includes(location);
+  const filtered =
+    allBoats.filter(
+      boat => {
 
-      return locationMatch;
-    });
+        const locationMatch =
+          !location ||
+          (boat.location || "")
+            .toLowerCase()
+            .includes(location);
 
-    displayBoats(filtered);
-  }
-<!-- FICHE DÉTAIL DU BATEAU -->
-<div id="boatDetails" style="display:none; padding:70px 7%; background:#06111f;">
-  <div style="max-width:1100px; margin:auto;">
 
-    <button
-      onclick="closeBoatDetails()"
-      style="background:none; border:1px solid #d5b36a; color:#d5b36a; padding:12px 20px; border-radius:8px; margin-bottom:30px;"
-    >
-      ← Retour aux bateaux
-    </button>
+        /*
+          Pour l'instant la table boats
+          utilise category_id.
+          On garde donc le filtre de
+          destination fonctionnel.
+        */
 
-    <img
-      id="detailImage"
-      src=""
-      style="width:100%; height:450px; object-fit:cover; border-radius:18px;"
-      alt="Bateau"
-    >
+        return locationMatch;
 
-    <div style="padding-top:30px;">
-      <div style="color:#d5b36a; text-transform:uppercase; letter-spacing:3px;">
-        OceanLux Collection
-      </div>
-
-      <h2 id="detailName" style="font-family:Georgia,serif; font-size:48px; margin:12px 0;">
-      </h2>
-
-      <p id="detailLocation" style="color:#aeb8c4; font-size:17px;"></p>
-
-      <p id="detailDescription" style="color:#c5ccd5; line-height:1.8; margin:25px 0;"></p>
-
-      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:15px; margin:30px 0;">
-
-        <div class="feature">
-          <strong id="detailCapacity">-</strong>
-          <span>Passagers</span>
-        </div>
-
-        <div class="feature">
-          <strong id="detailCabins">-</strong>
-          <span>Cabines</span>
-        </div>
-
-        <div class="feature">
-          <strong id="detailLength">-</strong>
-          <span>Longueur</span>
-        </div>
-
-        <div class="feature">
-          <strong id="detailYear">-</strong>
-          <span>Année</span>
-        </div>
-
-      </div>
-
-      <div style="background:white; color:#07111f; padding:30px; border-radius:16px; max-width:500px;">
-
-        <h3 style="font-family:Georgia,serif; font-size:28px;">
-          Réserver ce bateau
-        </h3>
-
-        <div id="detailPrice" style="font-size:28px; font-weight:bold; margin:15px 0;"></div>
-
-        <label>Date de départ</label>
-        <input id="bookingStart" type="date" style="width:100%; padding:13px; margin-top:6px;">
-
-        <label>Date de retour">Date de retour</label>
-        <input id="bookingEnd" type="date" style="width:100%; padding:13px; margin-top:6px;">
-
-        <button onclick="requestBoatBooking()" style="width:100%; padding:16px; margin-top:20px; background:#07111f; color:white; border:0; border-radius:8px;">
-          Demander une réservation
-        </button>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-async function openBoatDetails() {
-
-  const params = new URLSearchParams(window.location.search);
-  const boatId = params.get("boat");
-
-  if (!boatId) return;
-
-  try {
-
-    const response = await fetch(
-      SUPABASE_URL +
-      "/rest/v1/boats?id=eq." + boatId + "&select=*",
-      {
-        headers: {
-          apikey: SUPABASE_KEY,
-          Authorization: "Bearer " + SUPABASE_KEY
-        }
       }
     );
 
-    const boats = await response.json();
 
-    if (!boats.length) return;
+  displayBoats(filtered);
 
-    const boat = boats[0];
-
-    document.getElementById("boats-section").style.display = "none";
-    document.getElementById("experience").style.display = "none";
-    document.querySelector(".search").style.display = "none";
-    document.querySelector(".hero").style.display = "none";
-
-    document.getElementById("boatDetails").style.display = "block";
-
-    document.getElementById("detailName").textContent = boat.name;
-    document.getElementById("detailLocation").textContent =
-      "📍 " + (boat.location || "Destination non renseignée");
-
-    document.getElementById("detailDescription").textContent =
-      boat.description || "Une expérience nautique premium avec OceanLux.";
-
-    document.getElementById("detailCapacity").textContent =
-      boat.capacity || "-";
-
-    document.getElementById("detailCabins").textContent =
-      boat.cabins || "-";
-
-    document.getElementById("detailLength").textContent =
-      boat.length_m ? boat.length_m + " m" : "-";
-
-    document.getElementById("detailYear").textContent =
-      boat.build_year || "-";
-
-    document.getElementById("detailPrice").textContent =
-      Number(boat.price_per_day || 0).toLocaleString("fr-FR") + " FCFA / jour";
-
-    document.getElementById("detailImage").src =
-      "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1800&q=90";
-
-  } catch (error) {
-    console.error(error);
-  }
 }
+
+
+/* =========================
+   OUVRIR LES DÉTAILS
+========================= */
+
+async function openBoatDetails() {
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+
+  const boatId =
+    params.get("boat");
+
+
+  if (!boatId) {
+
+    return;
+
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/boats?id=eq." +
+        encodeURIComponent(boatId) +
+        "&select=*",
+        {
+
+          method: "GET",
+
+          headers: {
+
+            "apikey": SUPABASE_KEY,
+
+            "Authorization":
+              "Bearer " + SUPABASE_KEY
+
+          }
+
+        }
+      );
+
+
+    if (!response.ok) {
+
+      console.error(
+        await response.text()
+      );
+
+      return;
+
+    }
+
+
+    const boats =
+      await response.json();
+
+
+    if (!boats.length) {
+
+      return;
+
+    }
+
+
+    const boat =
+      boats[0];
+
+
+    document
+      .querySelector(".hero")
+      .style.display = "none";
+
+
+    document
+      .querySelector(".search")
+      .style.display = "none";
+
+
+    document
+      .getElementById("boats-section")
+      .style.display = "none";
+
+
+    document
+      .getElementById("experience")
+      .style.display = "none";
+
+
+    document
+      .getElementById("boatDetails")
+      .style.display = "block";
+
+
+    document
+      .getElementById("detailName")
+      .textContent =
+        boat.name || "Bateau OceanLux";
+
+
+    document
+      .getElementById("detailLocation")
+      .textContent =
+        "📍 " +
+        (
+          boat.location ||
+          "Destination non renseignée"
+        );
+
+
+    document
+      .getElementById("detailDescription")
+      .textContent =
+        boat.description ||
+        "Une expérience nautique premium avec OceanLux.";
+
+
+    document
+      .getElementById("detailCapacity")
+      .textContent =
+        boat.capacity || "-";
+
+
+    document
+      .getElementById("detailCabins")
+      .textContent =
+        boat.cabins || "-";
+
+
+    document
+      .getElementById("detailLength")
+      .textContent =
+        boat.length_m
+          ? boat.length_m + " m"
+          : "-";
+
+
+    document
+      .getElementById("detailYear")
+      .textContent =
+        boat.build_year || "-";
+
+
+    document
+      .getElementById("detailPrice")
+      .textContent =
+        Number(
+          boat.price_per_day || 0
+        ).toLocaleString("fr-FR") +
+        " FCFA / jour";
+
+
+    document
+      .getElementById("detailImage")
+      .src =
+        "https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1800&q=90";
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Erreur détails bateau :",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   RETOUR AUX BATEAUX
+========================= */
 
 function closeBoatDetails() {
-  window.location.href = window.location.pathname;
+
+  window.location.href =
+    window.location.pathname;
+
 }
+
+
+/* =========================
+   DEMANDE DE RÉSERVATION
+========================= */
 
 function requestBoatBooking() {
 
-  const start = document.getElementById("bookingStart").value;
-  const end = document.getElementById("bookingEnd").value;
+  const start =
+    document
+      .getElementById("bookingStart")
+      .value;
+
+
+  const end =
+    document
+      .getElementById("bookingEnd")
+      .value;
+
 
   if (!start || !end) {
-    alert("Veuillez sélectionner vos dates.");
+
+    alert(
+      "Veuillez sélectionner vos dates."
+    );
+
     return;
+
   }
+
 
   if (end < start) {
-    alert("La date de retour doit être après la date de départ.");
+
+    alert(
+      "La date de retour doit être après la date de départ."
+    );
+
     return;
+
   }
 
-  alert("Votre demande de réservation est prête.");
+
+  alert(
+    "Votre demande de réservation est prête."
+  );
+
 }
 
-openBoatDetails();
+
+/* =========================
+   DÉMARRAGE
+========================= */
+
 loadBoats();
+
+openBoatDetails();
+
 </script>
 
 </body>
-  
 </html>
