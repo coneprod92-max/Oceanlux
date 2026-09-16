@@ -949,6 +949,82 @@
     </div>
 
   </footer>
+<script>
+const SUPABASE_URL = "https://evvblxiitorfdniqmqcf.supabase.co";
+const SUPABASE_KEY = "sb_publishable_pJHLKhN_Qvj8M38uFNx4ow_WktH1zZC";
 
+async function loadBoats() {
+  try {
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/boats?select=*&status=eq.published`,
+      {
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Erreur Supabase : " + response.status);
+    }
+
+    const boats = await response.json();
+
+    console.log("Bateaux OceanLux :", boats);
+
+    const grid = document.querySelector(".boats-grid");
+
+    if (!grid) return;
+
+    if (boats.length === 0) {
+      grid.innerHTML = `
+        <p style="grid-column:1/-1;text-align:center;padding:40px;">
+          Aucun bateau publié pour le moment.
+        </p>
+      `;
+      return;
+    }
+
+    grid.innerHTML = boats.map(boat => `
+      <article class="boat-card">
+        <div class="boat-image">
+          <div class="boat-tag">
+            ${boat.boat_type || "Bateau"}
+          </div>
+        </div>
+
+        <div class="boat-info">
+          <div class="boat-location">
+            ${boat.location || "Destination"}
+          </div>
+
+          <h3>${boat.name || "Sans nom"}</h3>
+
+          <div class="boat-meta">
+            ${boat.capacity || 0} personnes
+          </div>
+
+          <div class="boat-bottom">
+            <div class="price">
+              <strong>${Number(boat.price_per_day || 0).toLocaleString("fr-FR")} FCFA</strong>
+              <span>à partir de / jour</span>
+            </div>
+
+            <a href="#" class="details">
+              DÉCOUVRIR →
+            </a>
+          </div>
+        </div>
+      </article>
+    `).join("");
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+loadBoats();
+</script>
 </body>
 </html>
