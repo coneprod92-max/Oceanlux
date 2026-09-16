@@ -1,1 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OceanLux — Yacht Prestige 60</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #07111f;
+      color: #fff;
+    }
+
+    .hero {
+      min-height: 70vh;
+      padding: 30px 7%;
+      display: flex;
+      align-items: flex-end;
+      background:
+        linear-gradient(to top, rgba(3,10,20,.95), rgba(3,10,20,.15)),
+        url("https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+    }
+
+    .back {
+      position: absolute;
+      top: 25px;
+      left: 7%;
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      background: rgba(0,0,0,.45);
+      padding: 10px 16px;
+      border-radius: 30px;
+    }
+
+    .hero-content {
+      max-width: 800px;
+    }
+
+    .tag {
+      color: #d7b56d;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: 1;
+      margin-bottom: 18px;
+    }
+
+    .location {
+      color: #ddd;
+      font-size: 17px;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: auto;
+      padding: 50px 7%;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.5fr .8fr;
+      gap: 50px;
+    }
+
+    h2 {
+      font-family: Georgia, serif;
+      font-size: 34px;
+      margin-bottom: 20px;
+    }
+
+    .description {
+      color: #b8c1cc;
+      line-height: 1.8;
+      font-size: 17px;
+      margin-bottom: 35px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+
+    .feature {
+      background: #0d1b2c;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+    }
+
+    .feature strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 6px;
+    }
+
+    .feature span {
+      color: #9da8b5;
+      font-size: 14px;
+    }
+
+    .booking {
+      background: #fff;
+      color: #08111d;
+      padding: 30px;
+      border-radius: 20px;
+      position: sticky;
+      top: 20px;
+    }
+
+    .price {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .per {
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin: 15px 0 7px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 22px;
+      padding: 16px;
+      border: none;
+      border-radius: 10px;
+      background: #07111f;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #c39b52;
+    }
+
+    footer {
+      text-align: center;
+      padding: 35px;
+      color: #748092;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    @media(max-width: 800px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking {
+        position: static;
+      }
+
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+    <a class="back" href="index.html">← Retour aux bateaux</a>
+
+    <div class="hero-content">
+      <div class="tag">OceanLux Collection</div>
+      <h1>OceanLux Prestige 60</h1>
+      <div class="location">📍 Cotonou, Bénin</div>
+    </div>
+  </section>
+
+  <main>
+    <div class="grid">
+
+      <section>
+        <h2>Une expérience en mer</h2>
+
+        <p class="description">
+          Yacht premium idéal pour les sorties privées, événements
+          et expériences de luxe en mer. Profitez d'un espace élégant
+          et confortable pour vivre une expérience OceanLux unique.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <strong>12</strong>
+            <span>Passagers</span>
+          </div>
+
+          <div class="feature">
+            <strong>3</strong>
+            <span>Cabines</span>
+          </div>
+
+          <div class="feature">
+            <strong>18,5 m</strong>
+            <span>Longueur</span>
+          </div>
+
+          <div class="feature">
+            <strong>2022</strong>
+            <span>Année</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="booking">
+        <div class="price">350 000 FCFA</div>
+        <div class="per">par jour</div>
+
+        <label>Date de départ</label>
+        <input type="date" id="start">
+
+        <label>Date de retour</label>
+        <input type="date" id="end">
+
+        <button onclick="requestBooking()">
+          Demander une réservation
+        </button>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer>
+    © 2026 OceanLux — L'expérience nautique premium.
+  </footer>
+
+  <script>
+    function requestBooking() {
+      const start = document.getElementById("start").value;
+      const end = document.getElementById("end").value;
+
+      if (!start || !end) {
+        alert("Veuillez sélectionner vos dates.");
+        return;
+      }
+
+      if (end < start) {
+        alert("La date de retour doit être après la date de départ.");
+        return;
+      }
+
+      alert(
+        "Votre demande de réservation est prête. OceanLux vous contactera pour confirmer."
+      );
+    }
+  </script>
+
+</body>
+</html>
