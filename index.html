@@ -3,10 +3,952 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OceanLux</title>
+
+  <title>OceanLux — Location de yachts & bateaux</title>
+  <meta name="description" content="OceanLux — Découvrez et réservez des yachts et bateaux d'exception.">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --navy: #061827;
+      --navy2: #0b263b;
+      --gold: #c9a45d;
+      --gold-light: #e1c47d;
+      --cream: #f6f2e9;
+      --white: #ffffff;
+      --text: #172a3a;
+      --muted: #71808d;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    /* ================= HEADER ================= */
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 20;
+      padding: 24px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+
+    .logo span {
+      color: var(--gold-light);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+
+    nav a {
+      font-size: 14px;
+      color: rgba(255,255,255,.9);
+      transition: .3s;
+    }
+
+    nav a:hover {
+      color: var(--gold-light);
+    }
+
+    .nav-button {
+      border: 1px solid rgba(255,255,255,.5);
+      padding: 11px 18px;
+      border-radius: 4px;
+    }
+
+    /* ================= HERO ================= */
+
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 130px 6% 80px;
+      color: white;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(3,16,28,.88) 0%,
+          rgba(3,16,28,.64) 48%,
+          rgba(3,16,28,.28) 100%
+        ),
+        url("https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&w=2000&q=90")
+        center/cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 760px;
+    }
+
+    .eyebrow {
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 5px;
+      font-size: 11px;
+      font-weight: bold;
+      margin-bottom: 22px;
+    }
+
+    .hero h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(50px, 8vw, 92px);
+      line-height: .94;
+      font-weight: normal;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 span {
+      color: var(--gold-light);
+    }
+
+    .hero-text {
+      max-width: 600px;
+      color: #e4ebf0;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* SEARCH */
+
+    .search-card {
+      margin-top: 38px;
+      max-width: 900px;
+      background: white;
+      padding: 10px;
+      border-radius: 7px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr auto;
+      gap: 8px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+    }
+
+    .search-field {
+      padding: 13px 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .search-field label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #87929a;
+      font-weight: bold;
+    }
+
+    .search-field input,
+    .search-field select {
+      border: none;
+      outline: none;
+      font-size: 14px;
+      background: transparent;
+      color: var(--text);
+      width: 100%;
+    }
+
+    .gold-button {
+      border: none;
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: bold;
+      padding: 0 25px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .3s;
+      min-height: 55px;
+    }
+
+    .gold-button:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    /* ================= SECTIONS ================= */
+
+    section {
+      padding: 95px 6%;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 45px;
+    }
+
+    .section-heading small {
+      color: #a27c3c;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .section-heading h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(38px, 5vw, 58px);
+      line-height: 1.05;
+      font-weight: normal;
+      margin-top: 15px;
+      color: var(--navy);
+    }
+
+    .section-heading p {
+      margin-top: 18px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 650px;
+    }
+
+    /* ================= BOATS ================= */
+
+    .boats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .boat-card {
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(6,24,39,.08);
+      transition: .35s;
+    }
+
+    .boat-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 20px 50px rgba(6,24,39,.15);
+    }
+
+    .boat-image {
+      height: 270px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .boat-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: .5s;
+    }
+
+    .boat-card:hover .boat-image img {
+      transform: scale(1.05);
+    }
+
+    .boat-tag {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: rgba(6,24,39,.85);
+      color: white;
+      padding: 8px 11px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .boat-info {
+      padding: 24px;
+    }
+
+    .boat-location {
+      color: #a27c3c;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 10px;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    .boat-info h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 27px;
+      font-weight: normal;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+
+    .boat-meta {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .boat-bottom {
+      border-top: 1px solid #eee;
+      padding-top: 17px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .price strong {
+      display: block;
+      font-size: 18px;
+      color: var(--navy);
+    }
+
+    .price span {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .details {
+      color: #a27c3c;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* ================= EXPERIENCE ================= */
+
+    .experience {
+      background: var(--navy);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .experience-content {
+      max-width: 850px;
+      margin: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .experience small {
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 11px;
+    }
+
+    .experience h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(40px, 6vw, 65px);
+      font-weight: normal;
+      line-height: 1.05;
+      margin: 18px 0 25px;
+    }
+
+    .experience p {
+      color: #c8d2da;
+      line-height: 1.8;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .experience .gold-button {
+      margin-top: 30px;
+      padding: 16px 28px;
+    }
+
+    /* ================= FEATURES ================= */
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .feature {
+      padding: 32px;
+      background: white;
+      border: 1px solid #eee8dc;
+    }
+
+    .feature-number {
+      color: var(--gold);
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    .feature h3 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 25px;
+      font-weight: normal;
+      margin-bottom: 12px;
+      color: var(--navy);
+    }
+
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      background: #03111c;
+      color: white;
+      padding: 55px 6% 30px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+      flex-wrap: wrap;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+
+    .footer-brand {
+      max-width: 360px;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 15px;
+    }
+
+    .footer-brand p {
+      color: #91a0aa;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 60px;
+    }
+
+    .footer-column h4 {
+      color: white;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 18px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #91a0aa;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      padding-top: 25px;
+      display: flex;
+      justify-content: space-between;
+      color: #66747d;
+      font-size: 11px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 900px) {
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: 850px;
+        padding-top: 150px;
+      }
+
+      .search-card {
+        grid-template-columns: 1fr;
+      }
+
+      .gold-button {
+        padding: 16px;
+      }
+
+      .boats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-links {
+        gap: 35px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 20px 5%;
+      }
+
+      .logo {
+        font-size: 21px;
+      }
+
+      .hero {
+        padding: 130px 5% 60px;
+        min-height: 820px;
+      }
+
+      .hero h1 {
+        font-size: 52px;
+      }
+
+      .hero-text {
+        font-size: 15px;
+      }
+
+      section {
+        padding: 70px 5%;
+      }
+
+      .section-heading h2 {
+        font-size: 40px;
+      }
+
+      .boat-image {
+        height: 240px;
+      }
+
+      .footer-links {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>OCEANLUX fonctionne 🚤</h1>
-  <p>Notre site est bien en ligne.</p>
+
+  <!-- HEADER -->
+
+  <header>
+    <a href="#accueil" class="logo">
+      OCEAN<span>LUX</span>
+    </a>
+
+    <nav>
+      <a href="#accueil">Accueil</a>
+      <a href="#bateaux">Bateaux</a>
+      <a href="#experience">Expérience</a>
+      <a href="#contact">Contact</a>
+      <a href="#bateaux" class="nav-button">Explorer</a>
+    </nav>
+  </header>
+
+
+  <!-- HERO -->
+
+  <main>
+
+    <section class="hero" id="accueil">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          L'art de naviguer autrement
+        </div>
+
+        <h1>
+          Le luxe<br>
+          <span>prend le large.</span>
+        </h1>
+
+        <p class="hero-text">
+          Découvrez une sélection de yachts, catamarans et bateaux
+          d'exception pour vos escapades privées, événements et
+          moments inoubliables en mer.
+        </p>
+
+        <div class="search-card">
+
+          <div class="search-field">
+            <label>Destination</label>
+            <input type="text" placeholder="Cotonou, Lagos...">
+          </div>
+
+          <div class="search-field">
+            <label>Date</label>
+            <input type="date">
+          </div>
+
+          <div class="search-field">
+            <label>Passagers</label>
+            <select>
+              <option>2 personnes</option>
+              <option>4 personnes</option>
+              <option>6 personnes</option>
+              <option>8 personnes</option>
+              <option>10+ personnes</option>
+            </select>
+          </div>
+
+          <button class="gold-button">
+            Explorer
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- BOATS -->
+
+    <section id="bateaux">
+
+      <div class="section-heading">
+
+        <small>Collection OceanLux</small>
+
+        <h2>
+          Des embarcations pensées pour l'exception.
+        </h2>
+
+        <p>
+          Parcourez notre sélection et trouvez l'embarcation
+          adaptée à votre prochaine expérience en mer.
+        </p>
+
+      </div>
+
+
+      <div class="boats-grid">
+
+        <!-- BOAT 1 -->
+
+        <article class="boat-card">
+
+          <div class="boat-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1605281317010-fe5ffe798166?auto=format&fit=crop&w=1200&q=90"
+              alt="Yacht Ocean Majesty"
+            >
+
+            <div class="boat-tag">
+              Yacht privé
+            </div>
+
+          </div>
+
+          <div class="boat-info">
+
+            <div class="boat-location">
+              Cotonou · Bénin
+            </div>
+
+            <h3>Ocean Majesty</h3>
+
+            <div class="boat-meta">
+              10 personnes · Équipage · 3 cabines
+            </div>
+
+            <div class="boat-bottom">
+
+              <div class="price">
+                <strong>350 000 FCFA</strong>
+                <span>à partir de / jour</span>
+              </div>
+
+              <a href="#" class="details">
+                DÉCOUVRIR →
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- BOAT 2 -->
+
+        <article class="boat-card">
+
+          <div class="boat-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1566847438217-76e82d383f84?auto=format&fit=crop&w=1200&q=90"
+              alt="Catamaran Azure Dream"
+            >
+
+            <div class="boat-tag">
+              Catamaran
+            </div>
+
+          </div>
+
+          <div class="boat-info">
+
+            <div class="boat-location">
+              Lagos · Nigeria
+            </div>
+
+            <h3>Azure Dream</h3>
+
+            <div class="boat-meta">
+              12 personnes · Équipage · 4 cabines
+            </div>
+
+            <div class="boat-bottom">
+
+              <div class="price">
+                <strong>450 000 FCFA</strong>
+                <span>à partir de / jour</span>
+              </div>
+
+              <a href="#" class="details">
+                DÉCOUVRIR →
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+
+        <!-- BOAT 3 -->
+
+        <article class="boat-card">
+
+          <div class="boat-image">
+
+            <img
+              src="https://images.unsplash.com/photo-1540946485063-a40da27545f8?auto=format&fit=crop&w=1200&q=90"
+              alt="Vedette Blue Horizon"
+            >
+
+            <div class="boat-tag">
+              Vedette
+            </div>
+
+          </div>
+
+          <div class="boat-info">
+
+            <div class="boat-location">
+              Grand-Popo · Bénin
+            </div>
+
+            <h3>Blue Horizon</h3>
+
+            <div class="boat-meta">
+              8 personnes · Équipage · 2 cabines
+            </div>
+
+            <div class="boat-bottom">
+
+              <div class="price">
+                <strong>250 000 FCFA</strong>
+                <span>à partir de / jour</span>
+              </div>
+
+              <a href="#" class="details">
+                DÉCOUVRIR →
+              </a>
+
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- EXPERIENCE -->
+
+    <section class="experience" id="experience">
+
+      <div class="experience-content">
+
+        <small>
+          L'expérience OceanLux
+        </small>
+
+        <h2>
+          Plus qu'une location.<br>
+          Une expérience en mer.
+        </h2>
+
+        <p>
+          OceanLux connecte voyageurs et propriétaires
+          d'embarcations d'exception autour d'une expérience
+          simple, élégante et mémorable.
+        </p>
+
+        <button class="gold-button">
+          Découvrir OceanLux
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section>
+
+      <div class="section-heading">
+
+        <small>Pourquoi OceanLux</small>
+
+        <h2>
+          Une nouvelle façon de vivre la mer.
+        </h2>
+
+      </div>
+
+
+      <div class="features">
+
+        <div class="feature">
+
+          <div class="feature-number">01</div>
+
+          <h3>Sélection exclusive</h3>
+
+          <p>
+            Des embarcations sélectionnées pour offrir
+            confort, élégance et qualité.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-number">02</div>
+
+          <h3>Réservation simplifiée</h3>
+
+          <p>
+            Trouvez votre bateau, choisissez vos dates
+            et envoyez votre demande en quelques instants.
+          </p>
+
+        </div>
+
+
+        <div class="feature">
+
+          <div class="feature-number">03</div>
+
+          <h3>Une expérience premium</h3>
+
+          <p>
+            Une plateforme pensée pour rendre chaque
+            escapade aussi simple qu'exceptionnelle.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+
+  <footer id="contact">
+
+    <div class="footer-top">
+
+      <div class="footer-brand">
+
+        <div class="logo">
+          OCEAN<span>LUX</span>
+        </div>
+
+        <p>
+          La nouvelle façon de vivre la mer.
+          Découvrez des embarcations d'exception
+          et créez votre prochaine aventure.
+        </p>
+
+      </div>
+
+
+      <div class="footer-links">
+
+        <div class="footer-column">
+
+          <h4>Explorer</h4>
+
+          <a href="#bateaux">Nos bateaux</a>
+          <a href="#experience">Expérience</a>
+
+        </div>
+
+
+        <div class="footer-column">
+
+          <h4>OceanLux</h4>
+
+          <a href="#">À propos</a>
+          <a href="#">Contact</a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>© 2026 OceanLux</span>
+
+      <span>La mer vous attend.</span>
+
+    </div>
+
+  </footer>
+
 </body>
 </html>
