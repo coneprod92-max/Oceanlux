@@ -807,8 +807,13 @@ let allBoats = [];
 
 async function loadBoats() {
 
-  const container =
-    document.getElementById("boats");
+  const container = document.getElementById("boats");
+
+  container.innerHTML = `
+    <div class="empty">
+      Connexion à OceanLux...
+    </div>
+  `;
 
   try {
 
@@ -817,7 +822,6 @@ async function loadBoats() {
       "/rest/v1/boats?select=*&status=eq.published&order=created_at.desc",
       {
         method: "GET",
-
         headers: {
           "apikey": SUPABASE_KEY,
           "Authorization": "Bearer " + SUPABASE_KEY
@@ -825,43 +829,34 @@ async function loadBoats() {
       }
     );
 
+    const data = await response.json();
+
+    console.log("Réponse Supabase :", data);
 
     if (!response.ok) {
-
-      const errorText =
-        await response.text();
-
-      console.error(
-        "Erreur Supabase :",
-        errorText
-      );
-
-      throw new Error(
-        "Impossible de charger les bateaux"
-      );
+      throw new Error(JSON.stringify(data));
     }
 
+    allBoats = data;
 
-    allBoats =
-      await response.json();
-
+    if (!Array.isArray(allBoats)) {
+      throw new Error("Les données reçues ne sont pas valides.");
+    }
 
     displayBoats(allBoats);
 
-  }
+  } catch (error) {
 
-  catch (error) {
-
-    console.error(error);
+    console.error("ERREUR OCEANLUX :", error);
 
     container.innerHTML = `
       <div class="empty">
-        Impossible de charger les bateaux pour le moment.
+        Impossible de charger les bateaux.
+        <br><br>
+        <small>Ouvre la console du navigateur pour voir l'erreur.</small>
       </div>
     `;
-
   }
-
 }
 
 
