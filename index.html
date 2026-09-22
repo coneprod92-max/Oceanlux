@@ -1208,47 +1208,89 @@ function closeBoatDetails() {
    DEMANDE DE RÉSERVATION
 ========================= */
 
-function requestBoatBooking() {
+async function requestBoatBooking() {
 
   const start =
-    document
-      .getElementById("bookingStart")
-      .value;
-
+    document.getElementById("bookingStart").value;
 
   const end =
-    document
-      .getElementById("bookingEnd")
-      .value;
-
+    document.getElementById("bookingEnd").value;
 
   if (!start || !end) {
-
-    alert(
-      "Veuillez sélectionner vos dates."
-    );
-
+    alert("Veuillez sélectionner vos dates.");
     return;
-
   }
 
-
   if (end < start) {
-
     alert(
       "La date de retour doit être après la date de départ."
     );
-
     return;
-
   }
 
+  const params =
+    new URLSearchParams(window.location.search);
 
-  alert(
-    "Votre demande de réservation est prête."
-  );
+  const boatId = params.get("boat");
 
-}
+  if (!boatId) {
+    alert("Bateau introuvable.");
+    return;
+  }
+
+  try {
+
+    const response = await fetch(
+      SUPABASE_URL + "/rest/v1/bookings",
+      {
+        method: "POST",
+
+        headers: {
+          "apikey": SUPABASE_KEY,
+          "Authorization": "Bearer " + SUPABASE_KEY,
+          "Content-Type": "application/json",
+          "Prefer": "return=representation"
+        },
+
+        body: JSON.stringify({
+          boat_id: boatId,
+          start_date: start,
+          end_date: end,
+          guest_count: 1,
+          customer_message:
+            "Demande de réservation depuis OceanLux",
+          status: "pending",
+          payment_status: "unpaid"
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (!response.ok) {
+
+      console.error("Erreur réservation :", result);
+
+      alert(
+        "La réservation n'a pas pu être envoyée. Vérifiez que vous êtes connecté."
+      );
+
+      return;
+    }
+
+    alert(
+      "🎉 Votre demande de réservation a bien été envoyée à OceanLux !"
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Une erreur est survenue. Veuillez réessayer."
+    );
+
+  }
 
 
 /* =========================
